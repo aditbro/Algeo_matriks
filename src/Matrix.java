@@ -23,6 +23,11 @@ public class Matrix {
 		}
 	}
 	
+	//fungsi get untuk memasukan nama variabel ke persamaan 
+	public char getVar(int j){
+		return(this.x[j]);
+	}
+	
 	//fungsi untuk mendapatkan panjang kolom
 	public int getColumnLength(){
 		return this.kol;
