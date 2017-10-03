@@ -21,14 +21,15 @@ public class main {
 					System.out.print("Input filename : ");
 					choice = sc.next();
 					
-					//akan dibuat prosedur ParseFile seperti di TBFO
-					ParseFile(choice, M);
+					//akan dibuat method ParseFile seperti di TBFO dari class Matrix
+					//M.ParseFile(choice);
 					loaded = true;
 				}else if(choice.equals("keyboard")){
 					System.out.println("Type your input :");
 					
-					//nanti akan dbuat prosedur ParseKey 
-					ParseKey(M);
+					//nanti akan dibuat method ParseKey dari class Matrix 
+					M.ParseKey();
+					M.ShowMatrix();
 					loaded = true;
 				}else{
 					System.out.println("Input method invalid");
@@ -50,10 +51,10 @@ public class main {
 					}
 					if(choice.equals("1")){
 						//Akan dibuat Prosedur SolveLinear yang memanfaatkan metode Gauss dan Gauss Jordan
-						SolveLinear(M);
+						//SolveLinear(M);
 					}else if(choice.equals("2")){
 						//Akan dibuat Prosedur Interpolate
-						Interpolate(M);
+						//Interpolate(M);
 					}
 				}else{
 					System.out.println("No input is currently loaded, try loading the input first");
@@ -68,12 +69,15 @@ public class main {
 			}else if(choice.equals("clear")){
 				loaded = false;
 				System.out.println("Matrix has been cleared");
+			}else if(choice.equals("close")){
+				break;
 			}else{
 				System.out.println("List of available commands :");
 				System.out.println("    load   load the input to program");
 				System.out.println("    run    run the available process");
 				System.out.println("    check  check the currently loaded Matrix");
 				System.out.println("    clear  clear the currently loaded Matrix");
+				System.out.println("    close  close the program");
 			}
 		}
 	}
