@@ -3,7 +3,7 @@ public class main {
 	public static void main(String[] args) {
 		//nanti akan dibuat class Matrix
 		Matrix M = new Matrix(100, 100);
-		
+		Solver solve = new Solver();
 		boolean loaded = false;
 		Scanner sc = new Scanner(System.in);
 		String choice;
@@ -12,6 +12,7 @@ public class main {
 			System.out.print(">>>");//bentuk dasar dari console
 			choice = "";
 			choice = sc.next();
+			boolean done = false;
 			if(choice.equals("load")){
 				//metode input bisa dari keyboard atau dari file
 				System.out.print("Chose input source (file or keyboard) :");
@@ -30,6 +31,7 @@ public class main {
 					
 					//nanti akan dibuat method ParseKey dari class Matrix 
 					M.ParseKey();
+					M.ShowMatrix();
 					loaded = true;
 				}else{
 					System.out.println("Input method invalid");
@@ -52,7 +54,9 @@ public class main {
 					}
 					if(choice.equals("1")){
 						//Akan dibuat Prosedur SolveLinear yang memanfaatkan metode Gauss dan Gauss Jordan
-						//SolveLinear(M);
+						solve.SolveLinear(M);
+						M.ShowMatrix();
+						//System.out.println(M.MatrixToString());
 					}else if(choice.equals("2")){
 						//Akan dibuat Prosedur Interpolate
 						//Interpolate(M);
@@ -61,6 +65,14 @@ public class main {
 						int n = sc.nextInt();
 						M.MakeHilbert(n);
 						//SolveHilbert(M);
+					}
+					System.out.print("Save to File? (Y/N)");
+					choice = sc.next();
+					if(choice.charAt(0) == 'Y' || choice.charAt(0) == 'y'){
+						System.out.print("Specify the output file : ");
+						choice = sc.next();
+						M.WriteFile(choice);
+						System.out.println("File written successfully");
 					}
 				}else{
 					System.out.println("No input is currently loaded, try loading the input first");

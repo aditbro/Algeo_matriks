@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+import java.text.DecimalFormat;
 public class Matrix {
 	private int kol;
 	private int brs;
@@ -17,12 +18,12 @@ public class Matrix {
 				this.M[i][j] = 0.0;
 			}
 		}
-		this.x = new char[baris];
+		this.x = new char[kolom];
 		for(int i = 0; i < baris - 1; ++i){
 			this.x[i] = (char)(i + 'a');
 		}
 		this.x[baris - 1] = '=';
-		this.y = new char[kolom];
+		this.y = new char[baris];
 		for(int i = 0; i < kolom; ++i){
 			this.y[i] = (char)(i + '1');
 		}
@@ -64,15 +65,15 @@ public class Matrix {
 	
 	//fungsi setRow untuk memberikan nilai row suatu Matrix
 	public void setRow(int i, Double[] D){
-		for(int j = 0; j < this.brs; ++j){
+		for(int j = 0; j < this.kol; ++j){
 			this.M[i][j] = D[j];
 		}
 	}
 	
 	//fungsi getColumn untuk mendapatkan column suatu Matrix
 	public Double[] getColumn(int j){
-		Double[] D = new Double[this.kol];
-		for(int i = 0; i < this.kol; ++i){
+		Double[] D = new Double[this.brs];
+		for(int i = 0; i < this.brs; ++i){
 			D[i] = this.M[i][j];
 		}
 		return D;
@@ -80,7 +81,7 @@ public class Matrix {
 	
 	//fungsi setColumn untuk memberikan nilai column suatu Matrix
 	public void setColumn(int j, Double[] D){
-		for(int i = 0; i < this.kol; ++j){
+		for(int i = 0; i < this.brs; ++i){
 			this.M[i][j] = D[i];
 		}
 	}
@@ -151,11 +152,24 @@ public class Matrix {
 	public void ShowMatrix(){
 		for(int i = 0; i < this.brs; i++) {
 			for (int j = 0; j < this.kol;j++) {
-	            System.out.print(this.M[i][j]);
+	            System.out.printf("%.3f",this.M[i][j]);
 	            System.out.print("\t");
 	        }
 	        System.out.println();
         }
+	}
+	
+	//fungsi menulis Matrix ke file
+	public void WriteFile(String filename){
+		try{
+			File files = new File(filename);
+			files.createNewFile();
+			PrintWriter out = new PrintWriter(filename);
+			out.println(MatrixToString());
+			out.close();
+		}catch(Exception e){
+			System.out.println(e);
+		}
 	}
 	
 	//Membuat Matrix Hilbert
@@ -212,5 +226,53 @@ public class Matrix {
 		}
 		this.brs = once.length - 1;
 		this.kol = once[0].split(" ").length - 1;
+	}
+	
+	//helper function membaca Matrix dan memasukan Matrix menjadi String
+	//String akan berbentuk seperti Matrix
+	private String MatrixToString(){
+		String s = "+";
+		boolean written = false;
+		for(int j = 0; j < this.kol; ++j){
+			s += '\t';
+			if(j != 0 && (j%((this.kol)/2)) == 0 && !written){
+				s += '|';
+				s += '\t';
+				written = true;
+			}
+			if(j == this.kol - 1){
+				s += '=';
+			}else{
+				s += this.x[j%((this.kol)/2)];
+			}
+		}
+		s += '\r';
+		s += '\n';
+		for(int i = 0; i < this.brs; i++){
+			for(int j = 0; j-1 < this.kol; j++){
+				if(j == 0){
+					s += this.y[i];
+				}else{
+					s += '\t';
+					if(j != 0 && (j%((this.kol + 1)/2)) == 0){
+						s += '|';
+						s += '\t';
+					}
+					s += pembulatan(get(i, j-1));
+				}
+			}
+			s += '\r';
+			s += '\n';
+		}
+		return s;
+	}
+	
+	//helper function pembulatan bilangan Double
+	private Double pembulatan(Double D){
+		D *= 100;
+		int n = D.intValue();
+		D = n/100.0;
+		return D;
+		
 	}
 }
