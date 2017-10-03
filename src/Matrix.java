@@ -29,12 +29,12 @@ public class Matrix {
 	}
 	
 	//fungsi untuk mendapatkan panjang kolom
-	public int getColumnLength(){
+	public int getNCol(){
 		return this.kol;
 	}
 	
 	//fungsi untuk mendapatkan panjang baris
-	public int getRowLength(){
+	public int getNRow(){
 		return this.brs;
 	}
 	
@@ -130,6 +130,10 @@ public class Matrix {
 	        }
 	        System.out.println();
         }
+	}
+	
+	public void MakeHilbert(int n){
+		for(int i = 0; )
 	}
 	
 	/*** Di bawah ini adalah list helper function yang tidak bisa diakses di luar kelas ***/
