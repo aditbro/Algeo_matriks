@@ -11,7 +11,7 @@ public class Matrix {
 	public Matrix(int baris, int kolom){
 		this.kol = kolom;
 		this.brs = baris;
-		this.M = new Double[baris][kolom];
+		this.M = new Double[100][100];
 		this.x = new char[baris];
 		for(int i = 0; i < baris - 1; ++i){
 			this.x[i] = (char)(i + 'a');
@@ -36,6 +36,16 @@ public class Matrix {
 	//fungsi untuk mendapatkan panjang baris
 	public int getNRow(){
 		return this.brs;
+	}
+	
+	//fungsi untuk set panjang kolom
+	public void setNCol(int n){
+		this.kol = n;
+	}
+	
+	//fungsi untuk set panjang baris
+	public void setNRow(int n){
+		this.brs = n;
 	}
 	
 	//fungsi getRow untuk mendapatkan row suatu Matrix
@@ -100,7 +110,7 @@ public class Matrix {
 		int brs, kol;
 		System.out.print("masukan jumlah baris : ");brs = sc.nextInt();
 		System.out.print("masukan jumlah kolom : ");kol = sc.nextInt();
-		this.M = new Double[brs][kol];
+		this.M = new Double[100][100];
 		this.brs = brs;
 		this.kol = kol;
 		Double temp;
@@ -132,8 +142,13 @@ public class Matrix {
         }
 	}
 	
+	//Membuat Matrix Hilbert
 	public void MakeHilbert(int n){
-		for(int i = 0; )
+		this.kol = n;
+		this.brs = n;
+		for(int i = 0; i < n; ++i){
+			
+		}
 	}
 	
 	/*** Di bawah ini adalah list helper function yang tidak bisa diakses di luar kelas ***/
