@@ -39,9 +39,10 @@ public class main {
 					System.out.println("Available Method :");
 					System.out.println("1.Solve linear algebra");
 					System.out.println("2.Interpolate");
+					System.out.println("3.Solve Hilbert Matrix");
 					System.out.print("Type the number of the choice : ");
 					choice = sc.next();
-					while(!choice.equals("1") && !choice.equals("2")){
+					while(!choice.equals("1") && !choice.equals("2") && !choice.equals("3")){
 						System.out.println("Invalid Method!");
 						System.out.println("Available Method :");
 						System.out.println("1.Solve linear algebra");
@@ -55,6 +56,11 @@ public class main {
 					}else if(choice.equals("2")){
 						//Akan dibuat Prosedur Interpolate
 						//Interpolate(M);
+					}else if(choice.equals("3")){
+						System.out.print("Masukan ukuran Matrix Hilbert : ");
+						int n = sc.nextInt();
+						M.MakeHilbert(n);
+						//SolveHilbert(M);
 					}
 				}else{
 					System.out.println("No input is currently loaded, try loading the input first");
