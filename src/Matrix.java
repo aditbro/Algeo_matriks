@@ -1,14 +1,26 @@
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 public class Matrix {
 	private int kol;
 	private int brs;
 	private Double[][] M;
+	private char[] x;
+	private char[] y;
 	
 	//konstruktor kelas matrix
-	public Matrix(int kolom, int baris){
+	public Matrix(int baris, int kolom){
 		this.kol = kolom;
 		this.brs = baris;
 		this.M = new Double[baris][kolom];
+		this.x = new char[baris];
+		for(int i = 0; i < baris - 1; ++i){
+			this.x[i] = (char)(i + 'a');
+		}
+		this.x[baris - 1] = '=';
+		this.y = new char[kolom];
+		for(int i = 0; i < kolom; ++i){
+			this.y[i] = (char)(i + '1');
+		}
 	}
 	
 	//fungsi untuk mendapatkan panjang kolom
@@ -95,14 +107,67 @@ public class Matrix {
 		}
 	}
 	
+	//fungsi menerima input dari file
+	public void ParseFile(String filename){
+		try{
+			StringToMatrix(readFile(filename));
+		}catch(Exception e){
+			System.out.println(e);
+		}
+	}
+	
 	//fungsi untuk menampilkan matrix ke layar
 	public void ShowMatrix(){
-		for(Double[] row : this.M) {
-			for (Double i : row) {
-	            System.out.print(i);
+		for(int i = 0; i < this.brs; i++) {
+			for (int j = 0; j < this.kol;j++) {
+	            System.out.print(this.M[i][j]);
 	            System.out.print("\t");
 	        }
 	        System.out.println();
         }
+	}
+	
+	/*** Di bawah ini adalah list helper function yang tidak bisa diakses di luar kelas ***/
+	/*------------------------------------------------------------------------------------*/
+	
+	//helper function untuk membaca dari file ke String
+	private String readFile(String fileName) throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(fileName));
+		try {
+			StringBuilder sb = new StringBuilder();
+			String line = br.readLine();
+
+			while (line != null) {
+				sb.append(line);
+				sb.append("\n");
+				line = br.readLine();
+			}
+			return sb.toString();
+		} finally {
+			br.close();
+		}
+	}
+	
+	//helper function membaca String dan mengisi Matrix berdasarkan String
+	//String yang valid adalah hasil return dari fungsi readFile
+	private void StringToMatrix(String s){
+		String[] once = s.split("\n");
+		String[][] temp = new String[once.length][once[0].split(" ").length];
+		for(int i = 0; i < once.length; ++i){
+			temp[i] = once[i].split(" ");
+		}
+		for(int j = 1; j < once[0].split(" ").length; ++j){
+			this.x[j-1] = temp[0][j].charAt(0);
+		}
+		for(int i = 1; i < once.length; ++i){
+			this.y[i-1] = temp[i][0].charAt(0);
+		}
+		for(int i = 1; i < once.length; ++i){
+			for(int j = 1; j < once[0].split(" ").length; ++j){
+				this.M[i-1][j-1] = Double.parseDouble(temp[i][j]);
+			}
+		}
+		this.brs = once.length - 1;
+		this.kol = once[0].split(" ").length - 1;
 	}
 }

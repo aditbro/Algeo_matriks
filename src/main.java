@@ -9,8 +9,8 @@ public class main {
 		String choice;
 		System.out.println("Program initialized");
 		while(true){//penghentian program akan menggunakan break
-			
 			System.out.print(">>>");//bentuk dasar dari console
+			choice = "";
 			choice = sc.next();
 			if(choice.equals("load")){
 				//metode input bisa dari keyboard atau dari file
@@ -22,14 +22,14 @@ public class main {
 					choice = sc.next();
 					
 					//akan dibuat method ParseFile seperti di TBFO dari class Matrix
-					//M.ParseFile(choice);
+					M.ParseFile(choice);
+					M.ShowMatrix();
 					loaded = true;
 				}else if(choice.equals("keyboard")){
 					System.out.println("Type your input :");
 					
 					//nanti akan dibuat method ParseKey dari class Matrix 
 					M.ParseKey();
-					M.ShowMatrix();
 					loaded = true;
 				}else{
 					System.out.println("Input method invalid");
@@ -81,5 +81,4 @@ public class main {
 			}
 		}
 	}
-
 }
