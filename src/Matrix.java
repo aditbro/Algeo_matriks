@@ -124,6 +124,7 @@ public class Matrix {
 	
 	//fungsi menerima input dari file
 	public void ParseFile(String filename){
+		this.M = new Double[100][100];
 		try{
 			StringToMatrix(readFile(filename));
 		}catch(Exception e){
@@ -144,10 +145,13 @@ public class Matrix {
 	
 	//Membuat Matrix Hilbert
 	public void MakeHilbert(int n){
+		this.M = new Double[100][100];
 		this.kol = n;
 		this.brs = n;
 		for(int i = 0; i < n; ++i){
-			
+			for(int j = 0; j < n; ++j){
+				this.M[i][j] =  1.00/(i + j + 1);
+			}
 		}
 	}
 	
