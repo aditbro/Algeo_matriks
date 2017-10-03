@@ -53,12 +53,12 @@ public class Matrix {
 		}
 	}
 	
-	//fungsi setter untuk memasukan nilai ke Matrix
+	//fungsi setter untuk memasukan nilai elemen ke Matrix
 	public void set(int i, int j, Double val){
 		this.M[i][j] = val;
 	}
 	
-	//fungsi getter untuk mendapatkan nilai Matrix
+	//fungsi getter untuk mendapatkan nilai elemen Matrix
 	public Double get(int i, int j){
 		return this.M[i][j];
 	}
@@ -97,11 +97,12 @@ public class Matrix {
 	
 	//fungsi untuk menampilkan matrix ke layar
 	public void ShowMatrix(){
-		for(int i = 0; i < this.brs; ++i){
-			for(int j = 0; j < this.kol; ++j){
-				System.out.print(this.M[i][j]+ " ");
-			}
-			System.out.println();
-		}
+		for(Double[] row : this.M) {
+			for (Double i : row) {
+	            System.out.print(i);
+	            System.out.print("\t");
+	        }
+	        System.out.println();
+        }
 	}
 }
