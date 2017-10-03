@@ -74,6 +74,8 @@ public class main {
 				}
 			}else if(choice.equals("clear")){
 				loaded = false;
+				M.setNCol(0);
+				M.setNRow(0);
 				System.out.println("Matrix has been cleared");
 			}else if(choice.equals("close")){
 				break;

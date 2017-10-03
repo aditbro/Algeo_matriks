@@ -12,6 +12,11 @@ public class Matrix {
 		this.kol = kolom;
 		this.brs = baris;
 		this.M = new Double[100][100];
+		for(int i = 0; i < 100; ++i){
+			for(int j = 0; j < 100; ++j){
+				this.M[i][j] = 0.0;
+			}
+		}
 		this.x = new char[baris];
 		for(int i = 0; i < baris - 1; ++i){
 			this.x[i] = (char)(i + 'a');
@@ -66,8 +71,8 @@ public class Matrix {
 	
 	//fungsi getColumn untuk mendapatkan column suatu Matrix
 	public Double[] getColumn(int j){
-		Double[] D = new Double[this.brs];
-		for(int i = 0; i < this.brs; ++i){
+		Double[] D = new Double[this.kol];
+		for(int i = 0; i < this.kol; ++i){
 			D[i] = this.M[i][j];
 		}
 		return D;
@@ -111,6 +116,11 @@ public class Matrix {
 		System.out.print("masukan jumlah baris : ");brs = sc.nextInt();
 		System.out.print("masukan jumlah kolom : ");kol = sc.nextInt();
 		this.M = new Double[100][100];
+		for(int i = 0; i < 100; ++i){
+			for(int j = 0; j < 100; ++j){
+				this.M[i][j] = 0.0;
+			}
+		}
 		this.brs = brs;
 		this.kol = kol;
 		Double temp;
@@ -125,6 +135,11 @@ public class Matrix {
 	//fungsi menerima input dari file
 	public void ParseFile(String filename){
 		this.M = new Double[100][100];
+		for(int i = 0; i < 100; ++i){
+			for(int j = 0; j < 100; ++j){
+				this.M[i][j] = 0.0;
+			}
+		}
 		try{
 			StringToMatrix(readFile(filename));
 		}catch(Exception e){
