@@ -16,20 +16,19 @@ public class main {
 			if(choice.equals("load")){
 				//metode input bisa dari keyboard atau dari file
 				System.out.print("Choose input source (file or keyboard) : ");
-				
 				choice = sc.next();
 				if(choice.equals("file")){
 					System.out.print("Input filename : ");
 					choice = sc.next();
-					
+
 					//akan dibuat method ParseFile seperti di TBFO dari class Matrix
 					M.ParseFile(choice);
 					M.ShowMatrix();
 					loaded = true;
 				}else if(choice.equals("keyboard")){
 					System.out.println("Type your input : ");
-					
-					//nanti akan dibuat method ParseKey dari class Matrix 
+
+					//nanti akan dibuat method ParseKey dari class Matrix
 					M.ParseKey();
 					M.ShowMatrix();
 					loaded = true;
@@ -56,6 +55,7 @@ public class main {
 						//Akan dibuat Prosedur SolveLinear yang memanfaatkan metode Gauss dan Gauss Jordan
 						solve.SolveLinear(M);
 						M.ShowMatrix();
+						solve.PrintSolution(M);
 						//System.out.println(M.MatrixToString());
 					}else if(choice.equals("2")){
 						//Akan dibuat Prosedur Interpolate
