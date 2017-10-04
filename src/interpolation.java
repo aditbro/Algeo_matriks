@@ -1,3 +1,4 @@
+package spl_solve;
 
 public class interpolation {
 	Double[] ItpEq;
