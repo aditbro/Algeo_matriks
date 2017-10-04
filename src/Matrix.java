@@ -230,7 +230,7 @@ public class Matrix {
 	
 	//helper function membaca Matrix dan memasukan Matrix menjadi String
 	//String akan berbentuk seperti Matrix
-	private String MatrixToString(){
+	public String MatrixToString(){
 		String s = "+";
 		boolean written = false;
 		for(int j = 0; j < this.kol; ++j){
