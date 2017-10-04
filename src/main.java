@@ -9,13 +9,13 @@ public class main {
 		String choice;
 		System.out.println("Program initialized");
 		while(true){//penghentian program akan menggunakan break
-			System.out.print(">>>");//bentuk dasar dari console
+			System.out.print(">>> ");//bentuk dasar dari console
 			choice = "";
 			choice = sc.next();
 			boolean done = false;
 			if(choice.equals("load")){
 				//metode input bisa dari keyboard atau dari file
-				System.out.print("Chose input source (file or keyboard) :");
+				System.out.print("Choose input source (file or keyboard) : ");
 				
 				choice = sc.next();
 				if(choice.equals("file")){
@@ -27,7 +27,7 @@ public class main {
 					M.ShowMatrix();
 					loaded = true;
 				}else if(choice.equals("keyboard")){
-					System.out.println("Type your input :");
+					System.out.println("Type your input : ");
 					
 					//nanti akan dibuat method ParseKey dari class Matrix 
 					M.ParseKey();
@@ -38,7 +38,7 @@ public class main {
 				}
 			}else if(choice.equals("run")){
 				if(loaded){
-					System.out.println("Available Method :");
+					System.out.println("Available Method : ");
 					System.out.println("1.Solve linear algebra");
 					System.out.println("2.Interpolate");
 					System.out.println("3.Solve Hilbert Matrix");
