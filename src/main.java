@@ -3,6 +3,7 @@ public class main {
 	public static void main(String[] args) {
 		//nanti akan dibuat class Matrix
 		Matrix M = new Matrix(100, 100);
+		interpolation inter = new interpolation();
 		Solver solve = new Solver();
 		boolean loaded = false;
 		Scanner sc = new Scanner(System.in);
@@ -59,7 +60,18 @@ public class main {
 						//System.out.println(M.MatrixToString());
 					}else if(choice.equals("2")){
 						//Akan dibuat Prosedur Interpolate
-						//Interpolate(M);
+						System.out.print("Insert the interpolation order : ");
+						int n = sc.nextInt();
+						inter.makeEq(M, n);
+						choice = "Yes";
+						Double O;
+						while(choice.charAt(0) == 'Y' || choice.charAt(0) == 'y'){
+							System.out.print("Insert the x that you want to interpolate : ");
+							O = sc.nextDouble();
+							System.out.printf("%.3f\n",inter.SolITP(O * 1.00));
+							System.out.print("Interpolate again? (Y/N)");
+							choice = sc.next();
+						}
 					}else if(choice.equals("3")){
 						System.out.print("Masukan ukuran Matrix Hilbert : ");
 						int n = sc.nextInt();

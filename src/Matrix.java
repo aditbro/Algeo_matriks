@@ -1,5 +1,3 @@
-package spl_solve;
-
 import java.util.*;
 import java.io.*;
 public class Matrix {
@@ -21,12 +19,12 @@ public class Matrix {
 			}
 		}
 		this.x = new char[kolom];
-		for(int i = 0; i < baris - 1; ++i){
+		for(int i = 0; i < kolom - 1; ++i){
 			this.x[i] = (char)(i + 'a');
 		}
 		this.x[baris - 1] = '=';
 		this.y = new char[baris];
-		for(int i = 0; i < kolom; ++i){
+		for(int i = 0; i < baris; ++i){
 			this.y[i] = (char)(i + '1');
 		}
 	}

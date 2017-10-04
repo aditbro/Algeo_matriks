@@ -1,5 +1,3 @@
-package spl_solve;
-
 public class interpolation {
 	Double[] ItpEq;
 	public Matrix MItpEq;
@@ -16,11 +14,11 @@ public class interpolation {
 	public void makeEq(Matrix M, int Deg) {
 		solve = new Solver();
 		MItpEq = new Matrix(Deg+1, Deg+2);
-		ItpEq = new Double[Deg+2];
+		ItpEq = new Double[Deg+1];
 		if (M.getNCol() == 2) {
 			for (int i = 0; i <= M.getNRow(); i++) {
 				for (int j = 0; j <= Deg+2; j++) {
-					if (j != Deg+2) {
+					if (j != Deg+1) {
 						MItpEq.set(i, j, power(M.get(i, 0),j));
 					}
 					else {
@@ -28,32 +26,39 @@ public class interpolation {
 					}
 				}
 			}
+			//MItpEq.ShowMatrix();
 			solve.SolveLinear(MItpEq);
+			//MItpEq.ShowMatrix();
 			ItpEq = solve.singleSolution(MItpEq);
+			/*for(int i = 0; i < ItpEq.length; ++i){
+				System.out.printf("%.3f ", ItpEq[i]);
+			}*/
+			System.out.println();
 			System.out.print("P(x) = ");
-			for (int i = 0; i <= Deg+1; i++) {
+			for (int i = 0; i < Deg+1; i++) {
 				if (i == 0) {
-					System.out.print(ItpEq[i] + " ");
+					System.out.printf("%.3f ",ItpEq[i]);
 				}
 				else if ((i == 1) && (ItpEq[i] > 0)) {
-					System.out.print("+ " + ItpEq[i] + "x ");
+					System.out.printf("+ %.3fx ",ItpEq[i]);
 				}
 				else if ((i == 1) && (ItpEq[i] < 0)) {
-					System.out.print("- " + (-ItpEq[i]) + "x ");
+					System.out.printf("- %.3fx ",(-ItpEq[i]));
 				}
 				else if ((i != Deg+1) && (ItpEq[i] > 0)) {
-					System.out.print("+ " + ItpEq[i] + "x^" + i + " ");
+					System.out.printf("+ %.3fx^%d ",ItpEq[i],i);
 				}
 				else if ((i != Deg+1) && (ItpEq[i] < 0)) {
-					System.out.print("- " + (-ItpEq[i]) + "x^" + i + " ");
+					System.out.printf("+ %.3fx^%d ",-ItpEq[i],i);
 				}
 				else if ((i == Deg+1) && (ItpEq[i] > 0)) {
-					System.out.print("+ " + ItpEq[i] + "x^" + i + " ");
+					System.out.printf("+ %.3fx^%d ",ItpEq[i],i);
 				}
 				else if ((i == Deg+1) && (ItpEq[i] < 0)) {
-					System.out.print("- " + (-ItpEq[i]) + "x^" + i);
+					System.out.printf("- %.3fx^%d ",-ItpEq[i],i);
 				} 
 			}
+			System.out.println();
 		}
 		else {
 			System.out.println("The loaded Matrix size is not for interpolation");
@@ -66,5 +71,10 @@ public class interpolation {
 			hasil = hasil + ItpEq[i]*power(X,i);
 		}
 		return hasil;
+	}
+	
+	public void clear(){
+		MItpEq.setNRow(0);
+		MItpEq.setNCol(0);
 	}
 }

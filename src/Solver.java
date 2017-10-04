@@ -1,6 +1,3 @@
-package spl_solve;
-
-
 public class Solver {
 	
  
@@ -125,8 +122,8 @@ public class Solver {
 		{
 			if(Math.abs(M.get(i, i)) > 1e-8)
 			{
-				x[i] = M.get(i, M.getNCol());
-			} else if (Math.abs(M.get(i, M.getNCol())) > 1e-8)
+				x[i] = M.get(i, M.getNCol()-1);
+			} else if (Math.abs(M.get(i, M.getNCol()-1)) > 1e-8)
 			{
 				return null; //no solution or many solutions.
 			}
