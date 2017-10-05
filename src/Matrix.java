@@ -196,11 +196,11 @@ public class Matrix {
 	public void BuildHilbert(){
 		Solver solve = new Solver();
 		solve.SolveLinear(this);
-		this.ShowMatrix();
 		for(int i = 0; i < this.getNRow(); ++i){
 			this.M[i][0] = this.M[i][this.getNCol()-1];
 		}
 		this.setNCol(1);
+		this.ShowMatrix();
 	}
 	
 	//Fungsi mereturn bentuk String dari Matrix
@@ -233,7 +233,7 @@ public class Matrix {
 						s += '|';
 						s += '\t';
 					}
-					s += pembulatan(get(i, j-1));
+					s += get(i, j-1);
 				}
 			}
 			s += '\r';
@@ -290,7 +290,7 @@ public class Matrix {
 	//helper function pembulatan bilangan Double
 	private Double pembulatan(Double D){
 		D *= 100;
-		int n = D.intValue();
+		long n = D.intValue();
 		D = n/100.0;
 		return D;
 

@@ -32,8 +32,14 @@ public class main {
 					choice = sc.next();
 
 					//akan dibuat method ParseFile seperti di TBFO dari class Matrix
-					M.ParseFile(choice);
-					M.ShowMatrix();
+					try{
+						M.ParseFile(choice);
+						M.ShowMatrix();
+						System.out.println("Loading file finished");
+					}catch(Exception e){
+						System.out.println(e);
+						System.out.println("Loading file failed");
+					}
 					loaded = true;
 				}else if(choice.equals("keyboard")){
 					System.out.println("Type your input : ");
@@ -58,6 +64,7 @@ public class main {
 						System.out.println("Available Method :");
 						System.out.println("1.Solve linear algebra");
 						System.out.println("2.Interpolate");
+						System.out.println("3.Solve Hilbert Matrix");
 						System.out.print("Type the number of the choice : ");
 						choice = sc.next();
 					}
@@ -90,7 +97,6 @@ public class main {
 						M.MakeHilbert(n);
 						M.ShowMatrix();
 						M.BuildHilbert();
-						M.ShowMatrix();
 						s = M.MatrixToString();
 					}
 					System.out.print("Save to File? (Y/N) \n");

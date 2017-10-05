@@ -40,31 +40,31 @@ public class interpolation {
 			for (int i = 0; i < Deg+1; i++) {
 				if (i == 0) {
 					System.out.printf("%.3f ",ItpEq[i]);
-					s+=pembulatan(ItpEq[i]) + " ";
+					s+=(ItpEq[i]) + " ";
 				}
 				else if ((i == 1) && (ItpEq[i] > 0)) {
 					System.out.printf("+ %.3fx ",ItpEq[i]);
-					s+="+ "+pembulatan(ItpEq[i]) + " ";
+					s+="+ "+(ItpEq[i]) + " ";
 				}
 				else if ((i == 1) && (ItpEq[i] < 0)) {
 					System.out.printf("- %.3fx ",(-ItpEq[i]));
-					s+="- "+pembulatan(-ItpEq[i]) + "x ";
+					s+="- "+(-1.00 * ItpEq[i]) + "x ";
 				}
 				else if ((i != Deg+1) && (ItpEq[i] > 0)) {
 					System.out.printf("+ %.3fx^%d ",ItpEq[i],i);
-					s+="+ "+pembulatan(ItpEq[i]) + "x^" + i + " ";
+					s+="+ "+(ItpEq[i]) + "x^" + i + " ";
 				}
 				else if ((i != Deg+1) && (ItpEq[i] < 0)) {
 					System.out.printf("- %.3fx^%d ",-ItpEq[i],i);
-					s+="- "+pembulatan(-ItpEq[i]) + "x^" + i + " ";
+					s+="- "+(-1.00* ItpEq[i]) + "x^" + i + " ";
 				}
 				else if ((i == Deg+1) && (ItpEq[i] > 0)) {
 					System.out.printf("+ %.3fx^%d ",ItpEq[i],i);
-					s+="+ "+pembulatan(ItpEq[i]) + "x^" + i + " ";
+					s+="+ "+(ItpEq[i]) + "x^" + i + " ";
 				}
 				else if ((i == Deg+1) && (ItpEq[i] < 0)) {
 					System.out.printf("- %.3fx^%d ",-ItpEq[i],i);
-					s+="- "+pembulatan(-ItpEq[i]) + "x^" + i + " ";
+					s+="- "+(-1.00 * ItpEq[i]) + "x^" + i + " ";
 				} 
 			}
 			System.out.println();
