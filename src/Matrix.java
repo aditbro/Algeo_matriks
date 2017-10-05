@@ -5,7 +5,7 @@ public class Matrix {
 	private int brs;
 	private Double[][] M;
 	private char[] x;
-	private char[] y;
+	private String[] y;
 	private Scanner sc;
 	
 	//konstruktor kelas matrix
@@ -23,15 +23,20 @@ public class Matrix {
 			this.x[i] = (char)(i + 'a');
 		}
 		this.x[baris - 1] = '=';
-		this.y = new char[baris];
+		this.y = new String[baris];
 		for(int i = 0; i < baris; ++i){
-			this.y[i] = (char)(i + '1');
+			this.y[i] = (i+1)+"";
 		}
 	}
 	
 	//fungsi get untuk memasukan nama variabel ke persamaan 
 	public char getVar(int j){
 		return(this.x[j]);
+	}
+	
+	//fungsi setter untuk memasukan nama variabe atas
+	public void setVar(int j, char c){
+		this.x[j] = c;
 	}
 	
 	//fungsi untuk mendapatkan panjang kolom
@@ -152,7 +157,7 @@ public class Matrix {
 	public void ShowMatrix(){
 		for(int i = 0; i < this.brs; i++) {
 			for (int j = 0; j < this.kol;j++) {
-	            System.out.printf("%.3f",this.M[i][j]);
+	            System.out.printf("%.3f",(Double)this.M[i][j]);
 	            System.out.print("\t");
 	        }
 	        System.out.println();
@@ -175,60 +180,28 @@ public class Matrix {
 	//Membuat Matrix Hilbert
 	public void MakeHilbert(int n){
 		this.M = new Double[100][100];
-		this.kol = n;
+		this.kol = n+1;
 		this.brs = n;
 		for(int i = 0; i < n; ++i){
 			for(int j = 0; j < n; ++j){
 				this.M[i][j] =  1.00/(i + j + 1);
 			}
+			this.M[i][n] = 1.00;
 		}
 	}
 	
-	/*** Di bawah ini adalah list helper function yang tidak bisa diakses di luar kelas ***/
-	/*------------------------------------------------------------------------------------*/
-	
-	//helper function untuk membaca dari file ke String
-	private String readFile(String fileName) throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(fileName));
-		try {
-			StringBuilder sb = new StringBuilder();
-			String line = br.readLine();
-
-			while (line != null) {
-				sb.append(line);
-				sb.append("\n");
-				line = br.readLine();
-			}
-			return sb.toString();
-		} finally {
-			br.close();
+	//Menyelesaikan soal Matrix Hilbert
+	public void BuildHilbert(){
+		Solver solve = new Solver();
+		solve.SolveLinear(this);
+		this.ShowMatrix();
+		for(int i = 0; i < this.getNRow(); ++i){
+			this.M[i][0] = this.M[i][this.getNCol()-1];
 		}
+		this.setNCol(1);
 	}
 	
-	//helper function membaca String dan mengisi Matrix berdasarkan String
-	//String yang valid adalah hasil return dari fungsi readFile
-	private void StringToMatrix(String s){
-		String[] once = s.split("\n");
-		String[][] temp = new String[once.length][once[0].split(" ").length];
-		for(int i = 0; i < once.length; ++i){
-			temp[i] = once[i].split(" ");
-		}
-		for(int j = 1; j < once[0].split(" ").length; ++j){
-			this.x[j-1] = temp[0][j].charAt(0);
-		}
-		for(int i = 1; i < once.length; ++i){
-			this.y[i-1] = temp[i][0].charAt(0);
-		}
-		for(int i = 1; i < once.length; ++i){
-			for(int j = 1; j < once[0].split(" ").length; ++j){
-				this.M[i-1][j-1] = Double.parseDouble(temp[i][j]);
-			}
-		}
-		this.brs = once.length - 1;
-		this.kol = once[0].split(" ").length - 1;
-	}
-	
-	//helper function membaca Matrix dan memasukan Matrix menjadi String
+	//Fungsi mereturn bentuk String dari Matrix
 	//String akan berbentuk seperti Matrix
 	public String MatrixToString(){
 		String s = "+";
@@ -265,6 +238,51 @@ public class Matrix {
 			s += '\n';
 		}
 		return s;
+	}
+	
+	
+	/*** Di bawah ini adalah list helper function yang tidak bisa diakses di luar kelas ***/
+	/*------------------------------------------------------------------------------------*/
+	
+	//helper function untuk membaca dari file ke String
+	private String readFile(String fileName) throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(fileName));
+		try {
+			StringBuilder sb = new StringBuilder();
+			String line = br.readLine();
+
+			while (line != null) {
+				sb.append(line);
+				sb.append("\n");
+				line = br.readLine();
+			}
+			return sb.toString();
+		} finally {
+			br.close();
+		}
+	}
+	
+	//helper function membaca String dan mengisi Matrix berdasarkan String
+	//String yang valid adalah hasil return dari fungsi readFile
+	private void StringToMatrix(String s){
+		String[] once = s.split("\n");
+		String[][] temp = new String[once.length][once[0].split(" ").length];
+		for(int i = 0; i < once.length; ++i){
+			temp[i] = once[i].split(" ");
+		}
+		for(int j = 1; j < once[0].split(" ").length; ++j){
+			this.x[j-1] = temp[0][j].charAt(0);
+		}
+		for(int i = 1; i < once.length; ++i){
+			this.y[i-1] = temp[i][0].charAt(0)+"";
+		}
+		for(int i = 1; i < once.length; ++i){
+			for(int j = 1; j < once[0].split(" ").length; ++j){
+				this.M[i-1][j-1] = Double.parseDouble(temp[i][j]);
+			}
+		}
+		this.brs = once.length - 1;
+		this.kol = once[0].split(" ").length - 1;
 	}
 	
 	//helper function pembulatan bilangan Double

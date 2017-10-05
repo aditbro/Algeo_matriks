@@ -83,7 +83,10 @@ public class main {
 						System.out.print("Masukan ukuran Matrix Hilbert : ");
 						int n = sc.nextInt();
 						M.MakeHilbert(n);
-						//SolveHilbert(M);
+						M.ShowMatrix();
+						M.BuildHilbert();
+						M.ShowMatrix();
+						s = M.MatrixToString();
 					}
 					System.out.print("Save to File? (Y/N)");
 					choice = sc.next();

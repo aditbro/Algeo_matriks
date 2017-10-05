@@ -26,7 +26,7 @@ public class Solver {
 			System.out.println();
 			*/
 			
-			if(Math.abs(M.get(p, p)) > 1e-8)
+			if(Math.abs(M.get(p, p)) > 0)
 			{
 				pivot (p,p, M);
 			}
@@ -70,7 +70,7 @@ public class Solver {
 	
 	public void pivot(int p, int q, Matrix M)
 	{
-		double mult;
+		Double mult;
 		//Buat nol untuk semua row kecuali di p q.
 		for(int i = 0; i < M.getNRow(); i++)
 		{
@@ -120,10 +120,10 @@ public class Solver {
 		Double[] x = new Double[M.getNRow()];
 		for (int i = 0; i < M.getNRow(); i++)
 		{
-			if(Math.abs(M.get(i, i)) > 1e-8)
+			if(Math.abs(M.get(i, i)) > 0)
 			{
 				x[i] = M.get(i, M.getNCol()-1);
-			} else if (Math.abs(M.get(i, M.getNCol()-1)) > 1e-8)
+			} else if (Math.abs(M.get(i, M.getNCol()-1)) > 0)
 			{
 				return null; //no solution or many solutions.
 			}
@@ -152,15 +152,15 @@ public class Solver {
 				boolean startPrint = true;
 				for(int j = 0; j < (M.getNCol()-1)/2; j++)
 				{
-					if(Math.abs(M.get(i, j)) > 1e-8)
+					if(Math.abs(M.get(i, j)) > 0)
 					{
-						if(M.get(i, j) > 1e-8 && !startPrint)
+						if(M.get(i, j) > 0 && !startPrint)
 						{
 							System.out.format(" + ");
 							s += " + ";
 						} 
 						
-						if(M.get(i, j) > 1e-8)
+						if(M.get(i, j) > 0)
 						{
 							if(M.get(i, j) == 1.00)
 							{
@@ -206,7 +206,7 @@ public class Solver {
 		int j = 0;
 		while (!foundNotZero && j < (M.getNCol() - 1)/2)
 		{
-			if (M.get(i, j) > 1e-8)
+			if (M.get(i, j) > 0)
 			{
 				foundNotZero = true;
 			}else
@@ -238,7 +238,7 @@ public class Solver {
 		return noSol;
 	}
 	
-	public double getSolution (int i, Matrix M)
+	public Double getSolution (int i, Matrix M)
 	{
 		return (M.get(i, M.getNCol()-1));
 	}
