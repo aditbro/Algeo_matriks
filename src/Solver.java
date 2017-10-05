@@ -146,65 +146,226 @@ public class Solver {
 	*/
 	{
 		String s = "";
-		if(noSolution(M))
+		for(int i = 0; (i < M.getNRow()); i++)
 		{
-			System.out.format("Tidak ada solusi\n");
-			s += "Tidak ada solusi\r\n";
-		} else
-		{
-			for(int i = 0; (i < M.getNRow()); i++)
+			boolean startPrint = true;
+			for(int j = 0; j < (M.getNCol()-1)/2; j++)
 			{
-				boolean startPrint = true;
-				for(int j = 0; j < (M.getNCol()-1)/2; j++)
+				if(Math.abs(M.get(i, j)) > 1e-8)
 				{
-					if(Math.abs(M.get(i, j)) > 0)
+					if(M.get(i, j) > 1e-8 && !startPrint)
 					{
-						if(M.get(i, j) > 0 && !startPrint)
-						{
-							System.out.format(" + ");
-							s += " + ";
-						} 
-						
-						if(M.get(i, j) > 0)
-						{
-							if(M.get(i, j) == 1.00)
-							{
-								System.out.format("%c", M.getVar(j));
-								s += M.getVar(j);
-							}else
-							{
-								System.out.format("%.2f%c", M.get(i,j),M.getVar(j));
-								s += ""+M.get(i,j)+M.getVar(j);
-							}
-						}
-						else if(M.get(i, j) < 0)
-						{
-							if(!startPrint)
-							{
-								System.out.format(" ");
-								s += " ";
-							}
-							System.out.format("- %.2f%c", -M.get(i, j), M.getVar(j));
-							s += "- "+(-M.get(i, j))+M.getVar(j);
-						}
-
-						startPrint = false;
-
+						System.out.format(" + ");
+						s += " + ";
 					}
-				}
 
-				//Print =
-				if(!allColumnZero(i, M))
-				{
-					System.out.format(" = %.2f\n",M.get(i, M.getNCol()-1));
-					s += " = "+M.get(i, M.getNCol()-1)+"\r\n";
-				}
+					if(M.get(i, j) > 1e-8)
+					{
+						if(M.get(i, j) == 1.00)
+						{
+							System.out.format("%c", M.getVar(j));
+							s += M.getVar(j);
+						}else
+						{
+							System.out.format("%.2f%c", M.get(i,j),M.getVar(j));
+							s += ""+M.get(i,j)+M.getVar(j);
+						}
+					}
+					else if(M.get(i, j) < 0)
+					{
+						if(!startPrint)
+						{
+							System.out.format(" ");
+							s += " ";
+						}
+						System.out.format("- %.2f%c", -M.get(i, j), M.getVar(j));
+						s += "- "+(-M.get(i, j))+M.getVar(j);
+					}
 
+					startPrint = false;
+
+				}
 			}
+
+			//Print =
+			if(!allColumnZero(i, M))
+			{
+				System.out.format(" = %.2f\n",M.get(i, M.getNCol()-1));
+				s += " = "+M.get(i, M.getNCol()-1)+"\r\n";
+			}
+
 		}
 		return s;
 	}
 
+
+	public int findOne(int i, Matrix M) //Mencari nilai 1 pertama pada baris i
+	{
+		int j;
+		if(!(allColumnZero(i,M) && solutionZero(i,M)))
+		{
+			j = 0;
+			while((j < ((M.getNCol()-1)/2)) && (M.get(i, j) < 1e-8))
+			{
+				if(M.get(i, j) < 1e-8)
+				{
+					j++;
+				}
+			}
+			return j;
+		} else
+		{
+			return 0;
+		}
+		
+	}
+	
+	public void toComplement(boolean[] Idx)
+	{
+		for(int i = 0; i < Idx.length; i++)
+		{
+			Idx[i] = !Idx[i];
+		}
+	}
+	
+	public String printParam(Matrix M)
+	{
+		String s = "";
+		char[] var = new char [(M.getNCol()-1)/2];
+		boolean[] paramIdx = new boolean[(M.getNCol()-1)/2];
+	
+		for(int i = 0; (i < M.getNRow()); i++)
+		{
+			boolean startPrint = true;
+			for(int j = 0; j < (M.getNCol()-1)/2; j++)
+			{
+				if(Math.abs(M.get(i, j)) > 1e-8)
+				{
+					if(M.get(i, j) > 1e-8 && !startPrint)
+					{
+						System.out.format(" + ");
+						s += " + ";
+					}
+
+					if(M.get(i, j) > 1e-8)
+					{
+						if(M.get(i, j) == 1.00)
+						{
+							System.out.format("%c", M.getVar(j));
+							s += M.getVar(j);
+						}else
+						{
+							System.out.format("%.2f%c", M.get(i,j),M.getVar(j));
+							s += ""+M.get(i,j)+M.getVar(j);
+						}
+					}
+					else if(M.get(i, j) < 0)
+					{
+						if(!startPrint)
+						{
+							System.out.format(" ");
+							s += " ";
+						}
+						System.out.format("- %.2f%c", -M.get(i, j), M.getVar(j));
+						s += "- "+(-M.get(i, j))+M.getVar(j);
+					}
+
+					startPrint = false;
+
+				}
+			}
+			
+			//Print =
+			if(!allColumnZero(i, M))
+			{
+				System.out.format(" = %.2f\n",M.get(i, M.getNCol()-1));
+				s += " = "+M.get(i, M.getNCol()-1)+"\r\n";
+			}
+			
+
+		}
+		
+		System.out.format("\nJadi, dalam bentuk parametrik : \n");
+		//Parametric Variable substitution
+		
+		for(int i = 0; i < M.getNRow();i++)
+		{
+			//recording
+			if(!allColumnZero(i,M))
+			{
+				paramIdx[findOne(i,M)] = true;
+			}
+			
+		}
+		//Substitution
+		toComplement(paramIdx);
+		char InitVar = 'r';
+		int N = 0;
+		for(int j = 0; j < (M.getNCol()-1)/2; j++)
+		{
+			if(paramIdx[j])
+			{
+				var[j] = M.getVar(j);
+				M.setVar(j, (char)((int)(InitVar) + N++));
+				
+				//Print Param Variables
+				System.out.format("%c = %c\n", var[j], M.getVar(j));
+			}
+		}
+		
+		for(int i = 0; i < M.getNRow(); i++)
+		{
+			//print var
+			if(!allColumnZero(i,M))
+			{
+				boolean startPrint = true;
+				
+				for(int j = 0; j < (M.getNCol()-1)/2; j++)
+				{
+					//kasus pertama, "x = "
+					if(j == findOne(i, M))
+					{
+						System.out.format("%c =", M.getVar(findOne(i,M)));
+						startPrint = true;
+					} else
+					{
+						if(M.get(i, j) > 0)
+						{
+							System.out.format(" - %.2f%c", M.get(i, j), M.getVar(j));
+						} else if (M.get(i, j) < 0)
+						{
+							if(!startPrint)
+							{
+								System.out.format(" + %.2f%c", -M.get(i,j), M.getVar(j));
+							} else
+							{
+								System.out.format(" %.2f%c", -M.get(i,j), M.getVar(j));
+							}
+						}
+						startPrint = false;
+					}
+					
+					
+				}
+				//print =
+				if(getSolution(i,M) < 0)
+				{
+					System.out.format(" - %.2f\n", -getSolution(i,M));
+				} else if (getSolution(i,M) > 0)
+				{
+					System.out.format(" + %.2f\n", getSolution(i,M));
+				}
+				
+				//end of if
+			}
+		}
+
+		
+		return s;
+		
+		
+	}
+	
 	public boolean allColumnZero(int i, Matrix M)
 	{
 		boolean foundNotZero = false;
@@ -247,5 +408,4 @@ public class Solver {
 	{
 		return (M.get(i, M.getNCol()-1));
 	}
-
 }
