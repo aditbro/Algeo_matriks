@@ -67,7 +67,17 @@ public class main {
 						solve.SolveLinear(M);
 						M.ShowMatrix();
 						s = M.MatrixToString();
-						s += solve.PrintSolution(M);
+						if(solve.isSolutionUnique(M))
+						{
+							s += solve.PrintSolution(M);
+						} else if(solve.noSolution(M))
+						{
+							System.out.format("Tidak ada solusi\n");
+							s += "Tidak ada solusi\r\n";
+						} else
+						{
+							s += solve.printParam(M);
+						}
 						//System.out.println(M.MatrixToString());
 					}else if(choice.equals("2")){
 						//Akan dibuat Prosedur Interpolate
