@@ -1,7 +1,6 @@
 
 //package spl_solve;
 
-=======
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.Scanner;

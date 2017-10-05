@@ -1,9 +1,8 @@
-<<<<<<< HEAD
+
 //package spl_solve;
 
 
-=======
->>>>>>> cf911cfc1f2d991f4e7538bc653ca73b61bdd6a2
+
 public class Solver {
 
 
