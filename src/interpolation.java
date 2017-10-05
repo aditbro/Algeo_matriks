@@ -2,7 +2,7 @@ public class interpolation {
 	Double[] ItpEq;
 	public Matrix MItpEq;
 	Solver solve;
-	
+
 	public Double power(Double X, int Deg) {
 		Double temp = 1.0;
 		for(int i = 1; i <= Deg; i++) {
@@ -10,7 +10,7 @@ public class interpolation {
 		}
 		return temp;
 	}
-	
+
 	public String makeEq(Matrix M, int Deg) {
 		String s = "";
 		solve = new Solver();
@@ -44,7 +44,7 @@ public class interpolation {
 				}
 				else if ((i == 1) && (ItpEq[i] > 0)) {
 					System.out.printf("+ %.3fx ",ItpEq[i]);
-					s+="+ "+(ItpEq[i]) + " ";
+					s+="+ "+(ItpEq[i]) + "x ";
 				}
 				else if ((i == 1) && (ItpEq[i] < 0)) {
 					System.out.printf("- %.3fx ",(-ItpEq[i]));
@@ -65,7 +65,7 @@ public class interpolation {
 				else if ((i == Deg+1) && (ItpEq[i] < 0)) {
 					System.out.printf("- %.3fx^%d ",-ItpEq[i],i);
 					s+="- "+(-1.00 * ItpEq[i]) + "x^" + i + " ";
-				} 
+				}
 			}
 			System.out.println();
 			s += "\r\n";
@@ -75,7 +75,7 @@ public class interpolation {
 		}
 		return s;
 	}
-	
+
 	public Double SolITP(Double X) {
 		Double hasil = 0.0;
 		for (int i = 0; i < ItpEq.length; i++) {
@@ -83,17 +83,17 @@ public class interpolation {
 		}
 		return hasil;
 	}
-	
+
 	public void clear(){
 		MItpEq.setNRow(0);
 		MItpEq.setNCol(0);
 	}
-	
+
 	private Double pembulatan(Double D){
 		D *= 100;
 		int n = D.intValue();
 		D = n/100.0;
 		return D;
-		
+
 	}
 }
