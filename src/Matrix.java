@@ -1,4 +1,4 @@
-package spl_solve;
+//package spl_solve;
 
 import java.util.*;
 import java.io.*;
@@ -9,7 +9,7 @@ public class Matrix {
 	private char[] x;
 	private char[] y;
 	private Scanner sc;
-	
+
 	//konstruktor kelas matrix
 	public Matrix(int baris, int kolom){
 		this.kol = kolom;
@@ -30,32 +30,32 @@ public class Matrix {
 			this.y[i] = (char)(i + '1');
 		}
 	}
-	
-	//fungsi get untuk memasukan nama variabel ke persamaan 
+
+	//fungsi get untuk memasukan nama variabel ke persamaan
 	public char getVar(int j){
 		return(this.x[j]);
 	}
-	
+
 	//fungsi untuk mendapatkan panjang kolom
 	public int getNCol(){
 		return this.kol;
 	}
-	
+
 	//fungsi untuk mendapatkan panjang baris
 	public int getNRow(){
 		return this.brs;
 	}
-	
+
 	//fungsi untuk set panjang kolom
 	public void setNCol(int n){
 		this.kol = n;
 	}
-	
+
 	//fungsi untuk set panjang baris
 	public void setNRow(int n){
 		this.brs = n;
 	}
-	
+
 	//fungsi getRow untuk mendapatkan row suatu Matrix
 	public Double[] getRow(int i){
 		Double[] D = new Double[this.kol];
@@ -64,14 +64,14 @@ public class Matrix {
 		}
 		return D;
 	}
-	
+
 	//fungsi setRow untuk memberikan nilai row suatu Matrix
 	public void setRow(int i, Double[] D){
 		for(int j = 0; j < this.kol; ++j){
 			this.M[i][j] = D[j];
 		}
 	}
-	
+
 	//fungsi getColumn untuk mendapatkan column suatu Matrix
 	public Double[] getColumn(int j){
 		Double[] D = new Double[this.brs];
@@ -80,38 +80,38 @@ public class Matrix {
 		}
 		return D;
 	}
-	
+
 	//fungsi setColumn untuk memberikan nilai column suatu Matrix
 	public void setColumn(int j, Double[] D){
 		for(int i = 0; i < this.brs; ++i){
 			this.M[i][j] = D[i];
 		}
 	}
-	
+
 	//fungsi setter untuk memasukan nilai elemen ke Matrix
 	public void set(int i, int j, Double val){
 		this.M[i][j] = val;
 	}
-	
+
 	//fungsi getter untuk mendapatkan nilai elemen Matrix
 	public Double get(int i, int j){
 		return this.M[i][j];
 	}
-	
+
 	//fungsi SwapRow untuk menukar nilai dua buah Row
 	public void SwapRow(int i1, int i2){
 		Double[] D = this.getRow(i1);
 		this.setRow(i1, this.getRow(i2));
 		this.setRow(i2, D);
 	}
-	
+
 	//fungsi SwapColumn untuk menukar nilai dua buah Column
 	public void SwapColumn(int j1, int j2){
 		Double[] D = this.getColumn(j1);
 		this.setColumn(j1, this.getColumn(j2));
 		this.setColumn(j2, D);
 	}
-	
+
 	//fungsi menerima input dari keyboard
 	public void ParseKey(){
 		sc = new Scanner(System.in);
@@ -134,7 +134,7 @@ public class Matrix {
 			}
 		}
 	}
-	
+
 	//fungsi menerima input dari file
 	public void ParseFile(String filename){
 		this.M = new Double[100][100];
@@ -149,7 +149,7 @@ public class Matrix {
 			System.out.println(e);
 		}
 	}
-	
+
 	//fungsi untuk menampilkan matrix ke layar
 	public void ShowMatrix(){
 		for(int i = 0; i < this.brs; i++) {
@@ -160,7 +160,7 @@ public class Matrix {
 	        System.out.println();
         }
 	}
-	
+
 	//fungsi menulis Matrix ke file
 	public void WriteFile(String filename){
 		try{
@@ -173,7 +173,7 @@ public class Matrix {
 			System.out.println(e);
 		}
 	}
-	
+
 	//Membuat Matrix Hilbert
 	public void MakeHilbert(int n){
 		this.M = new Double[100][100];
@@ -185,10 +185,10 @@ public class Matrix {
 			}
 		}
 	}
-	
+
 	/*** Di bawah ini adalah list helper function yang tidak bisa diakses di luar kelas ***/
 	/*------------------------------------------------------------------------------------*/
-	
+
 	//helper function untuk membaca dari file ke String
 	private String readFile(String fileName) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(fileName));
@@ -206,7 +206,7 @@ public class Matrix {
 			br.close();
 		}
 	}
-	
+
 	//helper function membaca String dan mengisi Matrix berdasarkan String
 	//String yang valid adalah hasil return dari fungsi readFile
 	private void StringToMatrix(String s){
@@ -229,7 +229,7 @@ public class Matrix {
 		this.brs = once.length - 1;
 		this.kol = once[0].split(" ").length - 1;
 	}
-	
+
 	//helper function membaca Matrix dan memasukan Matrix menjadi String
 	//String akan berbentuk seperti Matrix
 	private String MatrixToString(){
@@ -268,13 +268,13 @@ public class Matrix {
 		}
 		return s;
 	}
-	
+
 	//helper function pembulatan bilangan Double
 	private Double pembulatan(Double D){
 		D *= 100;
 		int n = D.intValue();
 		D = n/100.0;
 		return D;
-		
+
 	}
 }

@@ -1,21 +1,25 @@
+//package spl_solve;
+
 import java.util.Scanner;
 public class main {
+	private static Scanner sc;
+
 	public static void main(String[] args) {
 		//nanti akan dibuat class Matrix
 		Matrix M = new Matrix(100, 100);
 		Solver solve = new Solver();
 		boolean loaded = false;
-		Scanner sc = new Scanner(System.in);
+		sc = new Scanner(System.in);
 		String choice;
 		System.out.println("Program initialized");
 		while(true){//penghentian program akan menggunakan break
 			System.out.print(">>> ");//bentuk dasar dari console
 			choice = "";
 			choice = sc.next();
-			boolean done = false;
 			if(choice.equals("load")){
 				//metode input bisa dari keyboard atau dari file
 				System.out.print("Choose input source (file or keyboard) : ");
+
 				choice = sc.next();
 				if(choice.equals("file")){
 					System.out.print("Input filename : ");
@@ -66,7 +70,7 @@ public class main {
 						M.MakeHilbert(n);
 						//SolveHilbert(M);
 					}
-					System.out.print("Save to File? (Y/N)");
+					System.out.print("Save to File? (Y/N) \n");
 					choice = sc.next();
 					if(choice.charAt(0) == 'Y' || choice.charAt(0) == 'y'){
 						System.out.print("Specify the output file : ");
