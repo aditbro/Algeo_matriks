@@ -146,20 +146,22 @@ public class Solver {
 	*/
 	{
 		String s = "";
+		System.out.println(); // enter sekali
+		s += "\r\n";
 		for(int i = 0; (i < M.getNRow()); i++)
 		{
 			boolean startPrint = true;
 			for(int j = 0; j < (M.getNCol()-1)/2; j++)
 			{
-				if(Math.abs(M.get(i, j)) > 1e-8)
+				if(Math.abs(M.get(i, j)) > 0)
 				{
-					if(M.get(i, j) > 1e-8 && !startPrint)
+					if(M.get(i, j) > 0 && !startPrint)
 					{
 						System.out.format(" + ");
 						s += " + ";
 					}
 
-					if(M.get(i, j) > 1e-8)
+					if(M.get(i, j) > 0)
 					{
 						if(M.get(i, j) == 1.00)
 						{
@@ -205,9 +207,9 @@ public class Solver {
 		if(!(allColumnZero(i,M) && solutionZero(i,M)))
 		{
 			j = 0;
-			while((j < ((M.getNCol()-1)/2)) && (M.get(i, j) < 1e-8))
+			while((j < ((M.getNCol()-1)/2)) && (M.get(i, j) <= 0))
 			{
-				if(M.get(i, j) < 1e-8)
+				if(M.get(i, j) <= 0)
 				{
 					j++;
 				}
@@ -239,15 +241,15 @@ public class Solver {
 			boolean startPrint = true;
 			for(int j = 0; j < (M.getNCol()-1)/2; j++)
 			{
-				if(Math.abs(M.get(i, j)) > 1e-8)
+				if(Math.abs(M.get(i, j)) > 0)
 				{
-					if(M.get(i, j) > 1e-8 && !startPrint)
+					if(M.get(i, j) > 0 && !startPrint)
 					{
 						System.out.format(" + ");
 						s += " + ";
 					}
 
-					if(M.get(i, j) > 1e-8)
+					if(M.get(i, j) > 0)
 					{
 						if(M.get(i, j) == 1.00)
 						{
@@ -286,6 +288,7 @@ public class Solver {
 		}
 		
 		System.out.format("\nJadi, dalam bentuk parametrik : \n");
+		s += "\r\nJadi, dalam bentuk parametrik : \r\n";
 		//Parametric Variable substitution
 		
 		for(int i = 0; i < M.getNRow();i++)
@@ -310,6 +313,7 @@ public class Solver {
 				
 				//Print Param Variables
 				System.out.format("%c = %c\n", var[j], M.getVar(j));
+				s += var[j] + " = " + M.getVar(j) + "\r\n";
 			}
 		}
 		
@@ -326,20 +330,24 @@ public class Solver {
 					if(j == findOne(i, M))
 					{
 						System.out.format("%c =", M.getVar(findOne(i,M)));
+						s += M.getVar(findOne(i,M)) +" =";
 						startPrint = true;
 					} else
 					{
 						if(M.get(i, j) > 0)
 						{
 							System.out.format(" - %.2f%c", M.get(i, j), M.getVar(j));
+							s += " - " + M.get(i, j)+ M.getVar(j);
 						} else if (M.get(i, j) < 0)
 						{
 							if(!startPrint)
 							{
 								System.out.format(" + %.2f%c", -M.get(i,j), M.getVar(j));
+								s += " + " + -M.get(i, j)+ M.getVar(j);
 							} else
 							{
 								System.out.format(" %.2f%c", -M.get(i,j), M.getVar(j));
+								s += " " + -M.get(i, j)+ M.getVar(j);
 							}
 						}
 						startPrint = false;
@@ -351,9 +359,11 @@ public class Solver {
 				if(getSolution(i,M) < 0)
 				{
 					System.out.format(" - %.2f\n", -getSolution(i,M));
+					s += " - " + -getSolution(i,M) + "\r\n";
 				} else if (getSolution(i,M) > 0)
 				{
 					System.out.format(" + %.2f\n", getSolution(i,M));
+					s += " + " + getSolution(i,M) + "\r\n";
 				}
 				
 				//end of if

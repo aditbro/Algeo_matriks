@@ -64,7 +64,6 @@ public class main {
 						System.out.println("Available Method :");
 						System.out.println("1.Solve linear algebra");
 						System.out.println("2.Interpolate");
-						System.out.println("3.Solve Hilbert Matrix");
 						System.out.print("Type the number of the choice : ");
 						choice = sc.next();
 					}
@@ -98,7 +97,7 @@ public class main {
 							O = sc.nextDouble();
 							s += "P(" + O +") = " + inter.SolITP(O * 1.00) + "\r\n";
 							System.out.printf("%.3f\n",inter.SolITP(O * 1.00));
-							System.out.print("Interpolate again? (Y/N)");
+							System.out.print("Interpolate again? (Y/N)\n");
 							choice = sc.next();
 						}
 					}else if(choice.equals("3")){
