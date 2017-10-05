@@ -141,7 +141,7 @@ public class Matrix {
 	}
 
 	//fungsi menerima input dari file
-	public void ParseFile(String filename){
+	public boolean ParseFile(String filename) throws FileNotFoundException{
 		this.M = new Double[100][100];
 		for(int i = 0; i < 100; ++i){
 			for(int j = 0; j < 100; ++j){
@@ -150,8 +150,13 @@ public class Matrix {
 		}
 		try{
 			StringToMatrix(readFile(filename));
+			this.ShowMatrix();
+			System.out.println("Loading file finished");
+			return true;
 		}catch(Exception e){
 			System.out.println(e);
+			System.out.println("Loading file failed");
+			return false;
 		}
 	}
 

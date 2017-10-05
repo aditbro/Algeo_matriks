@@ -3,6 +3,7 @@
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 public class main {
 	private static Scanner sc;
@@ -33,14 +34,13 @@ public class main {
 
 					//akan dibuat method ParseFile seperti di TBFO dari class Matrix
 					try{
-						M.ParseFile(choice);
-						M.ShowMatrix();
-						System.out.println("Loading file finished");
-					}catch(Exception e){
-						System.out.println(e);
+						loaded = M.ParseFile(choice);
+						//M.ShowMatrix();
+						//System.out.println("Loading file finished");
+					}catch(FileNotFoundException e){
+						e.printStackTrace();
 						System.out.println("Loading file failed");
 					}
-					loaded = true;
 				}else if(choice.equals("keyboard")){
 					System.out.println("Type your input : ");
 
