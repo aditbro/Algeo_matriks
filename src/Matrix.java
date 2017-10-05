@@ -293,11 +293,5 @@ public class Matrix {
 
 	
 	//helper function pembulatan bilangan Double
-	private Double pembulatan(Double D){
-		D *= 100;
-		long n = D.intValue();
-		D = n/100.0;
-		return D;
 
-	}
 }

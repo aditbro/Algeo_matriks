@@ -89,11 +89,4 @@ public class interpolation {
 		MItpEq.setNCol(0);
 	}
 
-	private Double pembulatan(Double D){
-		D *= 100;
-		int n = D.intValue();
-		D = n/100.0;
-		return D;
-
-	}
 }
