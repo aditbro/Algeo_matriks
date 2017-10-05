@@ -1,5 +1,9 @@
+
 //package spl_solve;
 
+=======
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.Scanner;
 public class main {
 	private static Scanner sc;
@@ -7,14 +11,17 @@ public class main {
 	public static void main(String[] args) {
 		//nanti akan dibuat class Matrix
 		Matrix M = new Matrix(100, 100);
+		interpolation inter = new interpolation();
 		Solver solve = new Solver();
 		boolean loaded = false;
 		sc = new Scanner(System.in);
+		String s = "";
 		String choice;
 		System.out.println("Program initialized");
 		while(true){//penghentian program akan menggunakan break
 			System.out.print(">>> ");//bentuk dasar dari console
 			choice = "";
+			s = "";
 			choice = sc.next();
 			if(choice.equals("load")){
 				//metode input bisa dari keyboard atau dari file
@@ -55,15 +62,29 @@ public class main {
 						System.out.print("Type the number of the choice : ");
 						choice = sc.next();
 					}
+					s += M.MatrixToString();
 					if(choice.equals("1")){
 						//Akan dibuat Prosedur SolveLinear yang memanfaatkan metode Gauss dan Gauss Jordan
 						solve.SolveLinear(M);
 						M.ShowMatrix();
-						solve.PrintSolution(M);
+						s = M.MatrixToString();
+						s += solve.PrintSolution(M);
 						//System.out.println(M.MatrixToString());
 					}else if(choice.equals("2")){
 						//Akan dibuat Prosedur Interpolate
-						//Interpolate(M);
+						System.out.print("Insert the interpolation order : ");
+						int n = sc.nextInt();
+						s += inter.makeEq(M, n);
+						choice = "Yes";
+						Double O;
+						while(choice.charAt(0) == 'Y' || choice.charAt(0) == 'y'){
+							System.out.print("Insert the x that you want to interpolate : ");
+							O = sc.nextDouble();
+							s += "P(" + O +") = " + inter.SolITP(O * 1.00) + "\r\n";
+							System.out.printf("%.3f\n",inter.SolITP(O * 1.00));
+							System.out.print("Interpolate again? (Y/N)");
+							choice = sc.next();
+						}
 					}else if(choice.equals("3")){
 						System.out.print("Masukan ukuran Matrix Hilbert : ");
 						int n = sc.nextInt();
@@ -75,7 +96,7 @@ public class main {
 					if(choice.charAt(0) == 'Y' || choice.charAt(0) == 'y'){
 						System.out.print("Specify the output file : ");
 						choice = sc.next();
-						M.WriteFile(choice);
+						WriteFile(choice, s);
 						System.out.println("File written successfully");
 					}
 				}else{
@@ -103,6 +124,17 @@ public class main {
 				System.out.println("    clear  clear the currently loaded Matrix");
 				System.out.println("    close  close the program");
 			}
+		}
+	}
+	public static void WriteFile(String filename, String s){
+		try{
+			File files = new File(filename);
+			files.createNewFile();
+			PrintWriter out = new PrintWriter(filename);
+			out.println(s);
+			out.close();
+		}catch(Exception e){
+			System.out.println(e);
 		}
 	}
 }
